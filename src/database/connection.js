@@ -12,7 +12,7 @@ const dbSettings = {
     }
 }
 
-export const setConnection = async () =>{
+ export const setConnection = async () =>{
     try{
     const pool = await sql.connect(dbSettings);
     return pool;
