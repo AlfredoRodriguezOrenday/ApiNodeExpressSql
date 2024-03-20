@@ -70,3 +70,16 @@ export const updateProduct = async (req, res) =>{
         description: req.body.description
     })
 }
+
+export const deleteProduct = async (req, res) =>{
+    const pool = await setConnection();
+    const result = await pool
+    .request()
+    .input("id", sql.Int, req.params.id)
+    .query("DELETE FROM products WHERE id = @id");
+
+    if(result.rowsAffected[0] === 0){
+        return res.status(404).json({message: "the product cant be deleted"})
+    }
+    res.status(200).send("The product with the id " + req.params.id + " was deleted")
+}
